@@ -86,16 +86,6 @@ const getRecommendations = (weather, token) => {
     });
 };
 
-const spotifyLoginImplicitGrant = async () => {
-  let url = 'https://accounts.spotify.com/authorize';
-  url += '?response_type=token';
-  url += '&client_id=' + encodeURIComponent(spotifyClientID);
-  url += '&scope=' + encodeURIComponent('user-read-currently-playing user-modify-playback-state user-read-playback-state user-library-modify user-library-read');
-  url += '&redirect_uri=' + encodeURIComponent(`http://localhost:3000/user/login/settoken`);
-  url += '&show_dialog=true';
-  return url;
-};
-
 const tokenRefresher = () => {
   setSpotifyAccessToken();
   setTimeout(() => {
@@ -105,5 +95,18 @@ const tokenRefresher = () => {
 };
 // Refresh token every 1 hour
 tokenRefresher();
+
+app.post('/api/songs', (req, res) => {
+  setSpotifyAccessToken()
+    .then(token => {
+      return getRecommendations(req.body.weather, token)
+    })
+    .then(resp => {
+      res.send(resp);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
