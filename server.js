@@ -2,22 +2,20 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
+const app = express();
 require('dotenv').config();
 
 // express
-
-const client_id = process.env.CLIENT_ID;
-const client_secret = process.env.CLIENT_SECRET;
-const redirect_uri = process.env.REDIRECT_URI;
-const app = express();
-const port = 5000;
+const CLIENT_ID = process.env.ID;
+const CLIENT_SECRET = process.env.SECRET;
+const API_KEY = process.env.API_KEY;
+const PORT = process.env.PORT || 3001;
 
 var spotifyAccessTokenSet = false;
 var spotifyAccessToken = null;
 
-// use bodyParser as middleware
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 const setSpotifyAccessToken = () => {
   let tokenPromise = null;
@@ -51,7 +49,7 @@ const getSpotifyAccessToken = () => {
       grant_type: 'client_credentials'
     },
     headers: {
-      'Authorization': `Basic ${new Buffer(`${client_id}:${client_secret}`).toString('base64')}`,
+      'Authorization': `Basic ${new Buffer(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`,
       'Content-Type': 'application/x-www-form-urlencoded'
     },
   })
@@ -109,4 +107,16 @@ app.post('/api/songs', (req, res) => {
     });
 });
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.get('/api/weather', (req, res) => {
+  let city = req.body.city;
+  axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}` + `&APPID=` + API_KEY)
+    .then(response => {
+      console.log(response);
+      res.json(response.data);
+    })
+    .catch(error => {
+      console.log(error);
+    })
+})
+
+app.listen(PORT, () => console.log(`Listening on PORT ${PORT}`));
