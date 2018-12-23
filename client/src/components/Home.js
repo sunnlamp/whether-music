@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
+import axios from 'axios'
+import utils from '../utils/utils'
 
 export default class Home extends Component {
   state ={
-    city: ''
+    city: '',
+    weatherData: []
   }
 
   handleInputchange = event => {
@@ -14,14 +17,20 @@ export default class Home extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault()
-
+    axios
+      .get('/api/weather', { params: { city: this.state.city } })
+      .then(results => {
+        this.setState({
+          weatherData: results.data
+        })
+      })
   }
 
   render() {
     return (
       <div>
         <form>
-          <divtn className='form-group'>
+          <div className='form-group'>
             <label htmlFor='Weather'>
               <strong>Weather</strong>
             </label>
@@ -31,13 +40,14 @@ export default class Home extends Component {
               type='text'
               value={this.state.city}
               placeholder='Enter a city'
+              name='city'
               onChange={this.handleInputchange}
               required
             />
           </div>
           <div className='pull-right'>
             <button
-              onClick={handleFormSubmit}
+              onClick={this.handleFormSubmit}
               type='submit'
               className='btn btn-lg btn-danger float-right'
             >
