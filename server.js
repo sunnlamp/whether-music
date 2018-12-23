@@ -110,7 +110,7 @@ app.post('/api/songs', (req, res) => {
 app.get('/api/weather', (req, res) => {
   let city = req.query.city
     
-  axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}` + `&APPID=` + API_KEY)
+  axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial` + `&APPID=` + API_KEY)
     .then(response => {
       weatherData = response.data
       res.json(response.data)
