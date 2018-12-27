@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import utils from '../utils/utils'
 
 export default class Home extends Component {
   state ={
@@ -20,6 +19,8 @@ export default class Home extends Component {
     axios
       .get('/api/weather', { params: { city: this.state.city } })
       .then(results => {
+        console.log(results.data);
+        
         this.setState({
           weatherData: results.data
         })

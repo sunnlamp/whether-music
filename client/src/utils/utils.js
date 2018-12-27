@@ -1,7 +1,0 @@
-//(x − 273.15) × 9 / 5 + 32 = y
-
-module.exports = {
-  kelvinToFahrenheit: function(kelvin) {
-    return (kelvin - 273.15) * 9 / 5 + 32
-  }
-}
