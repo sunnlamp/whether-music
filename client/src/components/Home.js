@@ -7,7 +7,7 @@ export default class Home extends Component {
     weatherData: []
   }
 
-  handleInputchange = event => {
+  handleInputChange = event => {
     const{ name, value } = event.target;
     this.setState({
       [name]: value
@@ -42,8 +42,8 @@ export default class Home extends Component {
               value={this.state.city}
               placeholder='Enter a city'
               name='city'
-              onChange={this.handleInputchange}
-              required
+              onChange={this.handleInputChange}
+              required 
             />
           </div>
           <div className='pull-right'>
