@@ -13,6 +13,11 @@ describe('Home', () => {
   it('should render a div', () => {
     expect(wrapper.find('div').length).toEqual(3)
   })
+
+  it('checks the state of city key', () => {
+    wrapper.setState({ city: 'City' })
+    expect(wrapper.state('city')).toEqual('City')
+  });
 })
 
 describe('Mounted Home', () => {
