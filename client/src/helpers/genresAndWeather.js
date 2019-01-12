@@ -1,5 +1,16 @@
-const weatherConverter = () => {
+const weatherConverter = (data) => {
+  const weatherId = data.weather[0].id
+  const weatherMain = data.weather.main
+  const temperature = data.main.temp
+  const humidity = data.main.humidity
+  const windSpeed = data.wind.speed
+  const clouds = data.clouds.all
   
+  if (data) {
+    
+  } else {
+    
+  }
 }
 
 // from available Spotify music genres
