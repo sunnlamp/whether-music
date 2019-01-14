@@ -6,11 +6,20 @@ const weatherConverter = (data) => {
   let windSpeed = data.wind.speed
   let clouds = data.clouds.all
   let recommendationSeeds = {}
-
+  // energy float 0.0 - 1.0
+  // min_energy max_energy
+  // tempo float 0.0 - 1.0
+  // min_tempo max_tempo
+  // valence float  0.0 - 1.0
+  // min_valence max_valence
+  // popularity int 0 - 100
+  // min_popularity max_popularity
+  // mode major is 1 minor is 0
+  // taret_mode
   switch (weatherId) {
     // thunderstorm light rain
     case 200:
-      
+      recommendationSeeds.mode 
       break
     // thunderstorm with rain
     case 201:
@@ -223,9 +232,6 @@ const weatherConverter = (data) => {
     // overcast clouds
     case 804:
 
-      break
-    
-    default:
       break
   }
 }
