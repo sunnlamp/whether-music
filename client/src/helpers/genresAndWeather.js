@@ -1,15 +1,232 @@
 const weatherConverter = (data) => {
-  const weatherId = data.weather[0].id
-  const weatherMain = data.weather.main
-  const temperature = data.main.temp
-  const humidity = data.main.humidity
-  const windSpeed = data.wind.speed
-  const clouds = data.clouds.all
-  
-  if (data) {
+  let weatherId = data.weather[0].id
+  let weatherMain = data.weather.main
+  let temperature = data.main.temp
+  let humidity = data.main.humidity
+  let windSpeed = data.wind.speed
+  let clouds = data.clouds.all
+  let recommendationSeeds = {}
+
+  switch (weatherId) {
+    // thunderstorm light rain
+    case 200:
+      
+      break
+    // thunderstorm with rain
+    case 201:
+
+      break
+    // thunderstorm with heavy rain
+    case 202:
+
+      break
+    // light thunderstorm
+    case 210:
+
+      break
+    // thunderstorm
+    case 211:
+
+      break
+    // heavy thunderstorm
+    case 212:
+
+      break
+    // ragged thunderstorm
+    case 221:
+
+      break
+    // thunderstorm with light drizzle
+    case 230:
+
+      break
+    // thunderstorm with drizzle
+    case 231:
+
+      break
+    // thunderstorm with heavy drizzle
+    case 232:
+
+      break
+    // light intensity drizzle
+    case 300:
+
+      break
+    // drizzle
+    case 301:
+
+      break
+    // heavy intensity drizzle
+    case 302:
+
+      break
+    // light intensity drizzle rain
+    case 310:
+
+      break
+    // drizzle rain
+    case 311:
+
+      break
+    // heavy intensity drizzle rain
+    case 312:
+
+      break
+    // shower rain and drizzle
+    case 313:
+
+      break
+    // heavy shower rain and drizzle
+    case 314:
+
+      break
+    // shower drizzle
+    case 321:
+
+      break
+    // light rain
+    case 500:
+
+      break
+    // moderate rain
+    case 501:
+
+      break
+    // heavy intensity rain
+    case 502:
+
+      break
+    // very heavy rain
+    case 503:
+
+      break
+    // extreme rain
+    case 504:
+
+      break
+    // freezing rain
+    case 511:
+
+      break
+    // light intensity shower rain
+    case 520:
+
+      break
+    // shower rain
+    case 521:
+
+      break
+    // heavy intensity shower rain
+    case 522:
+
+      break
+    // ragged shower rain
+    case 231:
+
+      break
+    // light snow
+    case 600:
+
+      break
+    // snow
+    case 601:
+
+      break
+    // heavy snow
+    case 602:
+
+      break
+    // sleet
+    case 611:
+
+      break
+    // shower sleet
+    case 612:
+
+      break
+    // light rain and snow
+    case 615:
+
+      break
+    // rain and snow
+    case 616:
+
+      break
+    // light shower snow
+    case 620:
+
+      break
+    // shower snow
+    case 621:
     
-  } else {
+      break
+    // heavy shower snow
+    case 622:
+
+      break
+    // mist
+    case 701:
+
+      break
+    // smoke
+    case 711:
+
+      break
+    // haze
+    case 721:
+
+      break
+    // sand, dust whirls
+    case 731:
+
+      break
+    // fog
+    case 741:
+
+      break
+    // sand
+    case 751:
+
+      break
+    // dust
+    case 761:
+
+      break
+    // volcanic ash
+    case 762:
     
+      break
+    // squalls
+    case 771:
+
+      break
+    // tornado
+    case 781:
+
+      break
+    // clear
+    case 800:
+
+      break
+    // few clouds
+    case 801:
+
+      break
+    // scattered clouds
+    case 802:
+
+      break
+    // broken clouds
+    case 803:
+
+      break
+    // overcast clouds
+    case 804:
+
+      break
+    
+    default:
+      break
   }
 }
 
