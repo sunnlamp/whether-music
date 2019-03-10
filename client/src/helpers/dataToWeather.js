@@ -1,17 +1,7 @@
-const weatherConverter = (data) => {
+export const weatherConverter = (data) => {
   let weatherId = data.weather[0].id
   let temperature = data.main.temp
   let recommendationSeeds = {}
-  // energy float 0.0 - 1.0
-  // min_energy max_energy
-  // tempo float 0.0 - 1.0
-  // min_tempo max_tempo
-  // valence (positiveness) float  0.0 - 1.0
-  // min_valence max_valence
-  // popularity int 0 - 100
-  // min_popularity max_popularity
-  // mode major is 1 minor is 0
-  // taret_mode
 
   if (weatherId == (200 || 201)) {
     recommendationSeeds.min_tempo = 0.3
@@ -157,19 +147,21 @@ const weatherConverter = (data) => {
   }
 
   switch (temperature) {
-    case (temperature < 32):
+    case (temperature <= 32):
       recommendationSeeds.target_energy = 0.3
       break
-    case (temperature < 64):
+    case (temperature <= 64):
       recommendationSeeds.target_energy = 0.6
       break
-    case (temperature < 96):
+    case (temperature <= 96):
       recommendationSeeds.target_energy = 0.9
     case (temperature > 96):
       recommendationSeeds.target_energy = 1.0
     default:
       break
   }
-  
+
+  recommendationSeeds.target_popularity = 25
+
   return recommendationSeeds
 }

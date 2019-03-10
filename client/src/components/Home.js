@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import data from '../data.json'
+import { weatherConverter } from '../helpers/dataToWeather'
+
 
 export default class Home extends Component {
   state ={
@@ -27,6 +28,8 @@ export default class Home extends Component {
         })
       })
   }
+
+  weatherConverter()
 
   render() {
     return (
