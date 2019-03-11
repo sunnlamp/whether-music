@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { weatherConverter } from '../helpers/dataToWeather'
-
 
 export default class Home extends Component {
   state ={
     city: '',
-    weatherData: data
+    weatherData: [],
+    musicData: []
   }
 
   handleInputChange = event => {
@@ -22,14 +21,26 @@ export default class Home extends Component {
       .get('/api/weather', { params: { city: this.state.city } })
       .then(results => {
         console.log(results.data);
-        
         this.setState({
           weatherData: results.data
         })
       })
+      .catch(error => {
+        console.log(error);
+      })
   }
 
-  weatherConverter()
+  handleSpotifySubmit = event => {
+    event.preventDefault()
+    axios
+      .post('/api/songs', {params: { weatherData: this.state.weatherData }})
+      .then(results => {
+        console.log(results.data);
+        this.setState({
+          musicData: results.data
+        })
+      })
+  }
 
   render() {
     return (
@@ -57,6 +68,13 @@ export default class Home extends Component {
               className='btn btn-lg btn-danger float-right'
             >
               Search
+            </button>
+            <button
+              onClick={this.handleSpotifySubmit}
+              type='submit'
+              className='btn btn-lg btn-danger float-right'
+            >
+              Spotify
             </button>
           </div>
         </form>

@@ -1,3 +1,5 @@
+const dataToWeather = require('./helpers/dataToWeather')
+const genres = require('./helpers/genres')
 // dependencies
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -17,93 +19,98 @@ var weatherData = []
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-// const setSpotifyAccessToken = () => {
-//   let tokenPromise = null;
+const setSpotifyAccessToken = () => {
+  let tokenPromise = null;
 
-//   if (!spotifyAccessTokenSet) {
-//     tokenPromise = getSpotifyAccessToken()
-//       .then(res => {
-//         spotifyAccessTokenSet = true
-//         return res.access_token
-//       })
-//       .catch(err => {
-//         spotifyAccessTokenSet = false
-//         console.log(err)
-//       })
+  if (!spotifyAccessTokenSet) {
+    tokenPromise = getSpotifyAccessToken()
+      .then(res => {
+        spotifyAccessTokenSet = true
+        return res.access_token
+      })
+      .catch(error => {
+        spotifyAccessTokenSet = false
+        console.log(error)
+      })
 
-//     spotifyAccessToken = tokenPromise
-//       .then(accessToken => {
-//         return accessToken
-//       })
-//   }
+    spotifyAccessToken = tokenPromise
+      .then(accessToken => {
+        return accessToken
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
 
-//   // Optional return value for calls requiring a token back
-//   return spotifyAccessToken
-// }
+  // Optional return value for calls requiring a token back
+  return spotifyAccessToken
+}
 
-// const getSpotifyAccessToken = () => {
-//   return axios({
-//     url: 'https://accounts.spotify.com/api/token',
-//     method: 'POST',
-//     params: {
-//       grant_type: 'client_credentials'
-//     },
-//     headers: {
-//       'Authorization': `Basic ${new Buffer(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`,
-//       'Content-Type': 'application/x-www-form-urlencoded'
-//     },
-//   })
-//     .then((respond) => {
-//       console.log('got new token')
-//       return respond.data
-//     })
-//     .catch((error) => {
-//       console.log(error)
-//     })
-// }
+const getSpotifyAccessToken = () => {
+  axios.post('https://accounts.spotify.com/api/token')
+  return axios({
+    url: 'https://accounts.spotify.com/api/token',
+    method: 'POST',
+    params: {
+      grant_type: 'client_credentials'
+    },
+    headers: {
+      'Authorization': `Basic ${new Buffer.alloc(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`,
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+  })
+  .then((response) => {
+    console.log('got new token')
+    return response.data
+  })
+  .catch((error) => {
+    console.log(error)
+  })
+}
 
-// const getRecommendations = (weather, token) => {
-//   let features = FeatureWeather(weather.cityTemp, weather.cityCond, weather.cityCondDescription, weather.cityWind)
-//   const shuffled = spotifyGenres.sort(() => .5 - Math.random())
-//   let genres = shuffled.slice(0, 2).join(',')
+const getRecommendations = (weather, token) => {
+  let recommendatioSeeds = dataToWeather.weatherConverter(weather)
+  const shuffled = genres.sort(() => .5 - Math.random())
+  let shuffledGenres = shuffled.slice(0, 2).join(',')
 
-//   return axios({
-//     url: 'https://api.spotify.com/v1/recommendations',
-//     method: 'GET',
-//     // Merge features object with query options
-//     params: Object.assign(features, { seed_genres: genres, limit: 12, min_popularity: 15 }),
-//     headers: {
-//       'Authorization': `Bearer ${token}`
-//     },
-//   })
-//     .then((res) => {
-//       return res.data.tracks;
-//     })
-//     .catch((err) => {
-//       console.log(err)
-//     })
-// }
+  return axios({
+    url: 'https://api.spotify.com/v1/recommendations',
+    method: 'GET',
+    // Merge features object with query options
+    params: Object.assign(recommendatioSeeds, { seed_genres: shuffledGenres, limit: 12, min_popularity: 15 }),
+    headers: {
+      'Authorization': `Bearer ${token}`
+    },
+  })
+    .then((res) => {
+      return res.data.tracks;
+    })
+    .catch((error) => {
+      console.log(error + ": getRecommendations error")
+    })
+}
 
-// const tokenRefresher = () => {
-//   setSpotifyAccessToken()
-//   setTimeout(() => {
-//     spotifyAccessTokenSet = false;
-//     tokenRefresher()
-//   }, 3500000)
-// }
-// // Refresh token every 1 hour
-// tokenRefresher()
+const tokenRefresher = () => {
+  setSpotifyAccessToken()
+  setTimeout(() => {
+    spotifyAccessTokenSet = false;
+    tokenRefresher().catch(err => err)
+  }, 3500000)
+}
+// Refresh token every 1 hour
+tokenRefresher()
 
 app.post('/api/songs', (req, res) => {
   setSpotifyAccessToken()
     .then(token => {
-      return getRecommendations(req.body.weather, token)
+      let weather = req.body.params.weatherData
+      return getRecommendations(weather, token)
     })
-    .then(resp => {
-      res.send(resp)
+    .then(response => {
+      res.send(response)
     })
-    .catch(err => {
-      console.log(err)
+    .catch(error => {
+      console.log(error + ": error in /api/songs")
     })
 })
 
@@ -116,8 +123,13 @@ app.get('/api/weather', (req, res) => {
       res.json(response.data)
     })
     .catch(error => {
-      console.log('error occured')
+      console.log(error + ': error occured')
     })
 })
+
+process.on('unhandledRejection', (reason, p) => {
+  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+  // application specific logging, throwing an error, or other logic here
+});
 
 app.listen(PORT, () => console.log(`Listening on PORT ${PORT}`))

@@ -1,8 +1,8 @@
 // from available Spotify music genres
-export const genres = [
+module.exports = [
   "acoustic",
   "afrobeat",
-  "alt-rock",
+   "alt-rock",
   "alternative",
   "ambient",
   "anime",
