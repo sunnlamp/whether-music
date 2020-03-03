@@ -1,10 +1,9 @@
 module.exports = {
   weatherConverter: function(data) {
-    console.log(data);
     
     let weatherId = data.weather[0].id
     let temperature = data.main.temp
-    let recommendationSeeds = {}
+    let recommendationSeeds = []
 
     if (weatherId == (200 || 201)) {
       recommendationSeeds.min_tempo = 0.3
@@ -165,7 +164,7 @@ module.exports = {
     }
 
     recommendationSeeds.target_popularity = 25
-
+    
     return recommendationSeeds
   }
 }

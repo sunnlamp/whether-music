@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import axios from 'axios';
 
 export default class Home extends Component {
   state ={
@@ -18,28 +18,28 @@ export default class Home extends Component {
   handleFormSubmit = event => {
     event.preventDefault()
     axios
-      .get('/api/weather', { params: { city: this.state.city } })
-      .then(results => {
-        console.log(results.data);
-        this.setState({
-          weatherData: results.data
-        })
+    .get('/api/weather', { params: { city: this.state.city } })
+    .then(results => {
+      this.setState({
+        weatherData: results.data
       })
-      .catch(error => {
-        console.log(error);
-      })
+    })
+    .catch(error => {
+      console.log(error);
+    })
   }
 
   handleSpotifySubmit = event => {
     event.preventDefault()
     axios
-      .post('/api/songs', {params: { weatherData: this.state.weatherData }})
-      .then(results => {
-        console.log(results.data);
-        this.setState({
-          musicData: results.data
-        })
+    .post('/api/songs', {params: { weatherData: this.state.weatherData }})
+    .then(results => {
+      console.log(results);
+      
+      this.setState({
+        musicData: results.data
       })
+    })
   }
 
   render() {

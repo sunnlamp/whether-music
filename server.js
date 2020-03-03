@@ -1,3 +1,5 @@
+
+require('dotenv').config()
 const dataToWeather = require('./helpers/dataToWeather')
 const genres = require('./helpers/genres')
 // dependencies
@@ -5,11 +7,9 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const axios = require('axios')
 const app = express()
-require('dotenv').config()
-
-// express
-const CLIENT_ID = process.env.ID
-const CLIENT_SECRET = process.env.SECRET
+//env variables
+const spotifyClientID = process.env.SPOTIFY_ID
+const spotifyClientSecret = process.env.SPOTIFY_SECRET
 const API_KEY = process.env.API_KEY
 const PORT = process.env.PORT || 3001
 
@@ -47,7 +47,6 @@ const setSpotifyAccessToken = () => {
 }
 
 const getSpotifyAccessToken = () => {
-  axios.post('https://accounts.spotify.com/api/token')
   return axios({
     url: 'https://accounts.spotify.com/api/token',
     method: 'POST',
@@ -55,12 +54,11 @@ const getSpotifyAccessToken = () => {
       grant_type: 'client_credentials'
     },
     headers: {
-      'Authorization': `Basic ${new Buffer.alloc(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`,
+      'Authorization': `Basic ${new Buffer.from(`${spotifyClientID}:${spotifyClientSecret}`).toString('base64')}`,
       'Content-Type': 'application/x-www-form-urlencoded'
     },
   })
   .then((response) => {
-    console.log('got new token')
     return response.data
   })
   .catch((error) => {
@@ -69,25 +67,28 @@ const getSpotifyAccessToken = () => {
 }
 
 const getRecommendations = (weather, token) => {
-  let recommendatioSeeds = dataToWeather.weatherConverter(weather)
+  let recommendationSeeds = dataToWeather.weatherConverter(weather)
   const shuffled = genres.sort(() => .5 - Math.random())
   let shuffledGenres = shuffled.slice(0, 2).join(',')
-
+  
   return axios({
-    url: 'https://api.spotify.com/v1/recommendations',
+    url: 'https://api.spotify.com/v1/recommendations/',
     method: 'GET',
     // Merge features object with query options
-    params: Object.assign(recommendatioSeeds, { seed_genres: shuffledGenres, limit: 12, min_popularity: 15 }),
+    params: Object.assign(...recommendationSeeds, { seed_genres: shuffledGenres, limit: 12, min_popularity: 15 }),
     headers: {
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
     },
   })
-    .then((res) => {
-      return res.data.tracks;
-    })
-    .catch((error) => {
-      console.log(error + ": getRecommendations error")
-    })
+  .then((res) => {
+    console.log(res.data.tracks);
+    
+    return res.data.tracks;
+  })
+  .catch((error) => {
+    console.log(error)
+  })
 }
 
 const tokenRefresher = () => {
@@ -102,16 +103,16 @@ tokenRefresher()
 
 app.post('/api/songs', (req, res) => {
   setSpotifyAccessToken()
-    .then(token => {
-      let weather = req.body.params.weatherData
-      return getRecommendations(weather, token)
-    })
-    .then(response => {
-      res.send(response)
-    })
-    .catch(error => {
-      console.log(error + ": error in /api/songs")
-    })
+  .then(token => {
+    let weather = req.body.params.weatherData
+    return getRecommendations(weather, token)
+  })
+  .then(response => {
+    res.send(response)
+  })
+  .catch(error => {
+    console.log(error + ": error in /api/songs")
+  })
 })
 
 app.get('/api/weather', (req, res) => {
