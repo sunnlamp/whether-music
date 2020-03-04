@@ -82,8 +82,6 @@ const getRecommendations = (weather, token) => {
     },
   })
   .then((res) => {
-    console.log(res.data.tracks);
-    
     return res.data.tracks;
   })
   .catch((error) => {

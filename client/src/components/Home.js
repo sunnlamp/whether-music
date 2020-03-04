@@ -23,22 +23,15 @@ export default class Home extends Component {
       this.setState({
         weatherData: results.data
       })
+      return axios.post('/api/songs', { params: { weatherData: this.state.weatherData } })
     })
-    .catch(error => {
-      console.log(error);
-    })
-  }
-
-  handleSpotifySubmit = event => {
-    event.preventDefault()
-    axios
-    .post('/api/songs', {params: { weatherData: this.state.weatherData }})
     .then(results => {
-      console.log(results);
-      
       this.setState({
         musicData: results.data
       })
+    })
+    .catch(error => {
+      console.log(error);
     })
   }
 
