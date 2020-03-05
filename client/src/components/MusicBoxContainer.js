@@ -1,21 +1,22 @@
-import React, { Component } from 'react'
+import React from 'react'
 import '../styles/index.css'
 import MusicBox from './MusicBox'
 
-export default class MusicBoxContainer extends Component {
-  constructor (props) {
-    super(props)
-  }
-
-  render () {
-    const { musicData } = this.props.musicData
-    const musicBoxes = musicData.map(song => (
-      <MusicBox />
-    ))
-    return (
-      <div>
-        MusicBoxContainer
-      </div>
-    )
-  }
+const MusicBoxContainer = ({ musicData }) => {
+  return (
+    musicData.map(music => {
+      return (
+        <MusicBox
+          id={music.id}
+          name={music.name}
+          preview_url={music.preview_url}
+          artist_name={music.album.artists[0].name}
+          album_name={music.album.name}
+          album_art={music.album.images[1].url}
+        />
+      )
+    })
+  )
 }
+
+export default MusicBoxContainer
