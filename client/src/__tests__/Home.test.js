@@ -1,6 +1,6 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
-import Home from './Home'
+import Home from '../../components/Home'
 
 describe('Home', () => {
   let wrapper

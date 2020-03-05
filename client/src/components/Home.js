@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import Form from './Form'
 import axios from 'axios';
+import MusicBoxContainer from './MusicBoxContainer';
 
 export default class Home extends Component {
   state ={
@@ -13,6 +15,8 @@ export default class Home extends Component {
     this.setState({
       [name]: value
     })
+    this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
   }
 
   handleFormSubmit = event => {
@@ -29,6 +33,8 @@ export default class Home extends Component {
       this.setState({
         musicData: results.data
       })
+      console.log(results.data);
+      
     })
     .catch(error => {
       console.log(error);
@@ -37,40 +43,15 @@ export default class Home extends Component {
 
   render() {
     return (
-      <div>
-        <form>
-          <div className='form-group'>
-            <label htmlFor='Weather'>
-              <strong>Weather</strong>
-            </label>
-            <input
-              className='form-control'
-              id='City'
-              type='text'
-              value={this.state.city}
-              placeholder='Enter a city'
-              name='city'
-              onChange={this.handleInputChange}
-              required 
-            />
-          </div>
-          <div className='pull-right'>
-            <button
-              onClick={this.handleFormSubmit}
-              type='submit'
-              className='btn btn-lg btn-danger float-right'
-            >
-              Search
-            </button>
-            <button
-              onClick={this.handleSpotifySubmit}
-              type='submit'
-              className='btn btn-lg btn-danger float-right'
-            >
-              Spotify
-            </button>
-          </div>
-        </form>
+      <div className='container'>
+        <Form
+          inputChange={this.handleInputChange}
+          formSubmit={this.handleFormSubmit}
+          city={this.city}
+        />
+        <MusicBoxContainer
+          musicData={this.musicData}
+        />
       </div>
     )
   }
