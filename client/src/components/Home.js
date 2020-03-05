@@ -4,7 +4,7 @@ import axios from 'axios';
 import MusicBoxContainer from './MusicBoxContainer';
 
 export default class Home extends Component {
-  state ={
+  state = {
     city: '',
     weatherData: [],
     musicData: []
@@ -49,9 +49,15 @@ export default class Home extends Component {
           formSubmit={this.handleFormSubmit}
           city={this.city}
         />
-        <MusicBoxContainer
-          musicData={this.musicData}
-        />
+        {/* {
+          this.musicData !== null && !this.musicData. ? (
+            <h2>No results to display</h2>
+          ) : (
+              <MusicBoxContainer
+                musicData={this.musicData}
+              />
+            )
+        } */}
       </div>
     )
   }
