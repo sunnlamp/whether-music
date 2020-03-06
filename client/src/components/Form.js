@@ -2,7 +2,8 @@ import React from 'react'
 import '../styles/index.css'
 
 const Form = ({ inputChange, formSubmit, city }) => (
-  <form>
+  <div className='search'>
+    <form>
       <input
         className='searchInput'
         id='City'
@@ -16,11 +17,12 @@ const Form = ({ inputChange, formSubmit, city }) => (
       <button
         onClick={formSubmit}
         type='submit'
-        className='button'
+        className='search-icon'
       >
-        get music
+        find music
       </button>
-  </form>
+    </form>    
+  </div>
 )
 
 export default Form
