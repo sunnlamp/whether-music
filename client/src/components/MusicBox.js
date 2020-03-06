@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import '../styles/index.css'
 
 const MusicBox = ({ id, name, preview_url, artist_name, album_name, album_art }) => (
@@ -8,8 +8,7 @@ const MusicBox = ({ id, name, preview_url, artist_name, album_name, album_art })
     </header>
     <div className='article'>
       <h2>{name}</h2>
-      <h3>{artist_name}</h3>
-      <hr/>
+      <h2>{artist_name}</h2>
     </div>
   </section>
 )

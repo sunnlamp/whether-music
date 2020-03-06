@@ -13,6 +13,8 @@ const MusicBoxContainer = ({ musicData }) => {
           artist_name={music.album.artists[0].name}
           album_name={music.album.name}
           album_art={music.album.images[1].url}
+          height={music.album.images[1].height}
+          width={music.album.images[1].width}
         />
       )
     })

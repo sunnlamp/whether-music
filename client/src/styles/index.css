@@ -6,7 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #516F85;
+  background-color: #CED0D2;
 }
 
 a {
@@ -94,10 +94,10 @@ form button {
   min-height: 500px;
   margin: 15px;
   background-color: white;
-  /* box-shadow: 0 10px 10px -8px rgba(black, 0.075),
+  box-shadow: 0 10px 10px -8px rgba(black, 0.075),
   0 12px 20px -8px rgba(black, 0.075),
   0 15px 20px -8px rgba(black, 0.05),
-  0 0 10px 2px rgba(black, 0.025); */
+  0 0 10px 2px rgba(black, 0.025);
 }
 
 .card header {
@@ -131,7 +131,6 @@ form button {
   text-align: center;
   text-emphasis: uppercase;
   letter-spacing: 0.25em;
-  color: black;
 }
 
 .article h3 {
@@ -139,6 +138,10 @@ form button {
   font-weight: 400;
   font-size: .5rem;
   text-align: center;
+}
+
+hr {
+  width: 100%;
 }
 
 .hvr-sweep-to-top {
