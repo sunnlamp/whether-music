@@ -44,8 +44,8 @@ export default class Home extends Component {
   render() {
     const { city, musicData } = this.state;
     return (
-      <div className='container'>
-        <h2 className='title'>whether why</h2>
+      <div className='home'>
+        <h2 className='title'>whether music</h2>
         <Form
           inputChange={this.handleInputChange}
           formSubmit={this.handleFormSubmit}
@@ -53,11 +53,13 @@ export default class Home extends Component {
         />
         {
           musicData !== null && !musicData.length ? (
-            <h2 className='placeholder'>No results to display</h2>
+            <h1 className='no-result'>No results to display</h1>
           ) : (
+            <div className='music-container'>
               <MusicBoxContainer
                 musicData={musicData}
               />
+            </div>
             )
         }
       </div>

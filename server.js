@@ -85,15 +85,15 @@ const getRecommendations = (weather, token) => {
     return res.data.tracks;
   })
   .catch((error) => {
-    console.log(error)
+    console.log(error);
   })
 }
 
 const tokenRefresher = () => {
-  setSpotifyAccessToken()
+  setSpotifyAccessToken();
   setTimeout(() => {
     spotifyAccessTokenSet = false;
-    tokenRefresher().catch(err => err)
+    tokenRefresher().catch(err => err);
   }, 3500000)
 }
 // Refresh token every 1 hour
