@@ -1,11 +1,11 @@
 import React from 'react'
 import '../styles/index.css'
 
-const Form = ({ inputChange, formSubmit, city }) => (
+const Form = ({ inputChange, formSubmit, city, id }) => (
   <form className='search-bar'>
     <input
       className='search-input'
-      id='City'
+      id={id}
       type='text'
       value={city}
       placeholder='Enter a city'
@@ -18,7 +18,7 @@ const Form = ({ inputChange, formSubmit, city }) => (
       type='submit'
       className='search-btn'
     >
-      <i class="fas fa-search"></i>
+      <i className="fas fa-search"></i>
     </button>
   </form>    
 )

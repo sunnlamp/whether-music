@@ -9,7 +9,7 @@ const MusicBoxContainer = ({ musicData }) => {
         <MusicBox
           id={music.id}
           name={music.name}
-          preview_url={music.preview_url}
+          spotify_url={music.external_urls.spotify}
           artist_name={music.album.artists[0].name}
           album_name={music.album.name}
           album_art={music.album.images[1].url}

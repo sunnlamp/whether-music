@@ -5,11 +5,11 @@ import './styles/index.css'
 class App extends Component {
   render() {
     return (
-      <div class="container">
+      <div className="container">
         <Home />
       </div>
     );
   }
 }
 
-export default App;
+export default App
