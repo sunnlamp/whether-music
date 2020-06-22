@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 // import Script from 'react-load-script'
+import Weather from './Weather'
 import Form from './Form'
 import MusicBoxContainer from './MusicBoxContainer'
 import axios from 'axios'
@@ -12,7 +13,7 @@ export default class Home extends Component {
       // variable for Google Maps suggestions in search bar
       // query: '',
       message: 'No results to display',
-      weatherData: [],
+      weatherData: {},
       musicData: [],
     }
     // this.handleScriptLoad = this.handleScriptLoad.bind(this)
@@ -84,7 +85,7 @@ export default class Home extends Component {
   // }
 
   render() {
-    const { city, message, musicData } = this.state;
+    const { city, message, musicData, weatherData } = this.state;
     
     return (
       <div className='home'>
@@ -93,6 +94,15 @@ export default class Home extends Component {
               url={`https://maps.googleapis.com/maps/api/js?key=keygoeshere&libraries=places`}
               onLoad={this.handleScriptLoad}
             /> */}
+        {
+          weatherData.length !== null ? (
+            <h1 className='no-weather'>No weather to dislay yet</h1>
+          ) : (
+            <Weather
+              weatherData={weatherData}
+            />
+          )
+        }
         <Form
           id='autocomplete'
           inputChange={this.handleInputChange}
@@ -108,7 +118,7 @@ export default class Home extends Component {
                 musicData={musicData}
               />
             </div>
-            )
+          )
         }
       </div>
     )
