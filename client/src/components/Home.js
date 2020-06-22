@@ -15,8 +15,8 @@ export default class Home extends Component {
       weatherData: [],
       musicData: [],
     }
-    this.handleScriptLoad = this.handleScriptLoad.bind(this)
-    this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
+    // this.handleScriptLoad = this.handleScriptLoad.bind(this)
+    // this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
   }
 
 
