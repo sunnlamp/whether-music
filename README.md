@@ -3,9 +3,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Getting Started
 
 To run this project properly you will need to get<br>
-a few API keys. The client ID and Secret from Spotify<br>
-and an Open Weather Map Key. please these API keys as<br>
-the following environment variables in your .env<br>
+a few API keys. The Client ID and Secret from Spotify<br>
+and an Open Weather Map Key. Olease add these API keys<br>
+as the following environment variables in your .env<br>
 file.
 
 ```

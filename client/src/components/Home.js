@@ -36,18 +36,17 @@ export default class Home extends Component {
     .then(results => {
       if (results.data.length !== 0) {
         this.setState({ weatherData: results.data })
+        console.log(results.data);
+        
       } else {
         this.setState({ city: 'Please enter a city' })
       }
-
       return axios.post('/api/songs', { params: { weatherData: this.state.weatherData } })
     })
     .then(results => {
       this.setState({
         musicData: results.data
-      })
-      console.log(results.data);
-      
+      })      
     })
     .catch(error => {
       console.log(error);
