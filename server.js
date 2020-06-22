@@ -10,7 +10,7 @@ const app = express()
 //env variables
 const spotifyClientID = process.env.SPOTIFY_ID
 const spotifyClientSecret = process.env.SPOTIFY_SECRET
-const API_KEY = process.env.API_KEY
+const API_KEY = process.env.OPEN_WEATHER_API_KEY
 const PORT = process.env.PORT || 3001
 
 var spotifyAccessTokenSet = false
