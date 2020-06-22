@@ -19,10 +19,6 @@ var weatherData = []
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, 'build')));
-}
-
 const setSpotifyAccessToken = () => {
   let tokenPromise = null;
 
@@ -135,8 +131,15 @@ process.on('unhandledRejection', (reason, p) => {
   // application specific logging, throwing an error, or other logic here
 });
 
-app.get("/*", function(req, res) {
-  res.sendFile(path.join(__dirname, "./build/index.html"));
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+
+// Send every request to the React app
+// Define any API routes before this runs
+app.get("*", function(req, res) {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
 app.listen(PORT, () => console.log(`Listening on PORT ${PORT}`))
