@@ -85,7 +85,6 @@ body {
 .music-box {
   display: grid;
   background-color: aliceblue;
-  width: 65%;
   max-width: 100%;
   margin: 1rem;
   padding: 1rem;
