@@ -129,17 +129,17 @@ app.get('/api/weather', (req, res) => {
 process.on('unhandledRejection', (reason, p) => {
   console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
   // application specific logging, throwing an error, or other logic here
-});
+})
 
 // Serve up static assets (usually on heroku)
 
-  app.use(express.static("client/build"));
+  app.use(app.static(path.join(__dirname,'/build')));
 
 
 // Send every request to the React app
 // Define any API routes before this runs
-app.get("*", function(req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+app.get('/', function (req, res, next) {
+  res.sendFile(path.resolve('build/index.html'));
+})
 
 app.listen(PORT, () => console.log(`Listening on PORT ${PORT}`))
