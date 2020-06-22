@@ -19,7 +19,7 @@ You can get your Open Weather Map API Key from https://openweathermap.org/
 
 In the project directory, you can run:
 
-```sh
+```
     `yarn install`
 ```
 
@@ -33,13 +33,17 @@ Runs the app in the development mode.<br>
 This command will open the app in your default browser.<br>
 If you want to avoid this behavior run the following command:<br>
 
-### `UBROWSER=none yarn start`
+```
+    `UBROWSER=none yarn start`
+```
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Testing
 
-### `yarn test`
+```
+    `yarn test`
+```
 
 Tests to come.<br>
 
