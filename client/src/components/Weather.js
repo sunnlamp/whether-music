@@ -7,7 +7,7 @@ const Weather = ({ weatherData }) => (
                 {weatherData.main.feels_like}
             </li>
             <li>   
-                {weatherData.main.humdity}
+                {weatherData.main.humidity}
             </li>
             <li>
                 {weatherData.weather[0].main}

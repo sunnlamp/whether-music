@@ -13,7 +13,7 @@ export default class Home extends Component {
       // variable for Google Maps suggestions in search bar
       // query: '',
       message: 'No results to display',
-      weatherData: {},
+      weatherData: [],
       musicData: [],
     }
     // this.handleScriptLoad = this.handleScriptLoad.bind(this)
@@ -38,7 +38,6 @@ export default class Home extends Component {
       if (results.data.length !== 0) {
         this.setState({ weatherData: results.data })
         console.log(results.data);
-        
       } else {
         this.setState({ city: 'Please enter a city' })
       }
@@ -95,7 +94,7 @@ export default class Home extends Component {
               onLoad={this.handleScriptLoad}
             /> */}
         {
-          weatherData.length !== null ? (
+          weatherData.length === 0 ? (
             <h1 className='no-weather'>No weather to dislay yet</h1>
           ) : (
             <Weather
