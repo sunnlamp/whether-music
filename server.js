@@ -85,6 +85,7 @@ const getRecommendations = (weather, token) => {
     return res.data.tracks;
   })
   .catch((error) => {
+    console.log("Spotify Error:")
     console.log(error);
   })
 }
@@ -109,6 +110,7 @@ app.post('/api/songs', (req, res) => {
     res.send(response)
   })
   .catch(error => {
+    console.log("Spotify Error:")
     console.log(error + ": error in /api/songs")
   })
 })
@@ -122,6 +124,7 @@ app.get('/api/weather', (req, res) => {
       res.json(response.data)
     })
     .catch(error => {
+      console.log("Open Weather Error:")
       console.log(error + ': error occured')
     })
 })
